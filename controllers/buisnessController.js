@@ -1,71 +1,82 @@
-const Buisness = require('../models/Business');
+const Business = require('../models/Business');
 
-const postBuisness = async (request, response) => {
-    // response.send("POST buisness");
+const postBusiness = async (request, response) => {
+    // response.send("POST business");
 
     console.log(request.body);
 
-    const buisness = new Buisness(request.body);
+    const business = new Business(request.body);
 
     try {
-        const addedBuisness = await buisness.save();
-        response.status(201).json(addedBuisness);
+        const addedBusiness = await business.save();
+        response.status(201).json(addedBusiness);
     } catch (error) {
         response.json({ message: error });
     }
 }
 
-const getAllBuisness = async (request, response) => {
-    // response.send("GET buisness");
+const getAllBusiness = async (request, response) => {
+    // response.send("GET business");
 
     try {
-        const buisness = await Buisness.find();
-        response.status(200).json(buisness);
+        const business = await Business.find();
+        response.status(200).json(business);
     } catch (error) {
         response.json({ message: error });
     }
 }
 
-const getOneBuisness = async (request, response) => {
-    // response.send("GET specific buisness");
+const getOneBusiness = async (request, response) => {
+    // response.send("GET specific business");
 
     try {
         const id = request.params.id;
-        const buisness = await Buisness.findById(id);
-        response.status(200).json(buisness);
+        const business = await Business.findById(id);
+        response.status(200).json(business);
     } catch (error) {
         response.json({ message: error });
     }
 }
 
-const editBuisness = async (request, response) => {
-    // response.send("PUT buisness");
+const getBusinessByCategory = async (request, response) => {
+    try {
+        const categoryId = request.params.categoryId;
+        const business = await Business.find({ categoryId: categoryId });
+        response.status(200).json(business);
+
+    } catch (error) {
+        response.json({ message: error });
+    }
+}
+
+const editBusiness = async (request, response) => {
+    // response.send("PUT business");
 
     try {
         const id = request.params.id;
-        // const updatedBuisness = await Buisness.updateOne({ _id: id }, { $set: {title: request.body.title} });
-        const toBeUpdated = await Buisness.findById(id);
+        // const updatedBusiness = await Business.updateOne({ _id: id }, { $set: {title: request.body.title} });
+        const toBeUpdated = await Business.findById(id);
         toBeUpdated.sub = request.body.sub;
-        const updatedBuisness = await Buisness.save();
-        response.status(200).json(updatedBuisness);
+        const updatedBusiness = await Business.save();
+        response.status(200).json(updatedBusiness);
     } catch (error) {
         response.json({ message: error });
     }
 }
 
-const deleteBuisness = async (request, response) => {
-    // response.send("DELETE buisness");
+const deleteBusiness = async (request, response) => {
+    // response.send("DELETE business");
 
     try {
         const id = request.params.id;
-        // const removedBuisness = await Buisness.findByIdAndDelete(id);
-        const removedBuisness = await Buisness.remove({ _id: id });
-        response.status(204).json(removedBuisness);
+        // const removedBusiness = await business.findByIdAndDelete(id);
+        const removedBusiness = await Business.remove({ _id: id });
+        response.status(204).json(removedBusiness);
     } catch (error) {
         response.json({ message: error });
     }
 
-    // Buisness.findByIdAndDelete(id)
+    // business.findByIdAndDelete(id)
     //     .then(result => {
     //         response.status(204).json(result);
     //     })
@@ -74,10 +85,13 @@ const deleteBuisness = async (request, response) => {
     //     })
 }
 
+
+
 module.exports = {
-    postBuisness,
-    getAllBuisness,
-    getOneBuisness,
-    editBuisness,
-    deleteBuisness
+    postBusiness,
+    getAllBusiness,
+    getOneBusiness,
+    editBusiness,
+    deleteBusiness,
+    getBusinessByCategory
 }

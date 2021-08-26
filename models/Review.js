@@ -15,7 +15,7 @@ const ReviewSchema = mongoose.Schema({
     },
     businessId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Buisness',
+        ref: 'Business',
         required: true
     },
 }, {

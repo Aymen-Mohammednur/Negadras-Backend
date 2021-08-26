@@ -5,9 +5,9 @@ const app = express();
 app.use(express.json());
 
 // importing routes
-const buisnessRoute = require('./routes/buisness');
+const businessRoute = require('./routes/business');
 
-app.use('/buisness', buisnessRoute);
+app.use('/business', businessRoute);
 
 // connecting to database
 const dbURI = "mongodb+srv://negadras:negadras@negadras.yutnd.mongodb.net/negadras?retryWrites=true&w=majority";

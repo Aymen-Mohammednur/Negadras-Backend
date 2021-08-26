@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const buisnessController = require('../controllers/buisnessController')
+const businessController = require('../controllers/businessController')
 
 // router.post('/', (request, response) => {
-//     response.send("POST buisness");
+//     response.send("POST business");
 
 //     console.log(request.body);
 
-//     const buisness = new Buisness(request.body);
+//     const business = new business(request.body);
 
-//     buisness.save()
+//     business.save()
 //     .then(data => {
 //         response.status(200).json(data);
 //     })
@@ -20,15 +20,17 @@ const buisnessController = require('../controllers/buisnessController')
 // });
 
 // USING ASYNC
-router.post('/', buisnessController.postBuisness);
+router.post('/', businessController.postBusiness);
 
-router.get('/', buisnessController.getAllBuisness);
+router.get('/', businessController.getAllBusiness);
 
-router.get('/:id', buisnessController.getOneBuisness);
+router.get('/:id', businessController.getOneBusiness);
 
-router.patch('/:id', buisnessController.editBuisness);
+router.get('/filter/:category', businessController.getBusinessByCategory);
 
-router.delete('/:id', buisnessController.deleteBuisness);
+router.put('/:id', businessController.editBusiness);
+
+router.delete('/:id', businessController.deleteBusiness);
 
 
 module.exports = router;
