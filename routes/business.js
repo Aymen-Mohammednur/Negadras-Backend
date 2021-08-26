@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const businessController = require('../controllers/businessController')
+const businessController = require('../controllers/businessController');
 
 // router.post('/', (request, response) => {
 //     response.send("POST business");
@@ -19,8 +19,6 @@ const businessController = require('../controllers/businessController')
 
 // });
 
-
-// USING ASYNC
 router.post('/', businessController.postBusiness);
 
 router.get('/', businessController.getAllBusiness);
