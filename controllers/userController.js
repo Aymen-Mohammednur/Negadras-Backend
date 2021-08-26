@@ -35,7 +35,7 @@ const editUser = async (request, response) => {
         const id = request.params.id;
         const toBeEdited = await User.findById(id);
         toBeEdited.sub = request.body.sub;
-        const editedUser = await Buisness.save();
+        const editedUser = await User.save();
         response.status(200).json(editedUser);
     } catch (error) {
         response.json({ message: error });

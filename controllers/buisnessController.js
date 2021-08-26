@@ -8,7 +8,7 @@ const postBuisness = async (request, response) => {
     const buisness = new Buisness(request.body);
 
     try {
-        const addedBuisness = await buisness.save();
+        const addedBuisness = await buisness.save(); 
         response.status(201).json(addedBuisness);
     } catch (error) {
         response.json({ message: error });

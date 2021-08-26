@@ -6,8 +6,12 @@ app.use(express.json());
 
 // importing routes
 const buisnessRoute = require('./routes/buisness');
+const reviewRoute = require('./routes/review');
+const userRoute = require('./routes/user');
 
 app.use('/buisness', buisnessRoute);
+app.use('/review', reviewRoute);
+app.use('/user',userRoute);
 
 // connecting to database
 const dbURI = "mongodb+srv://negadras:negadras@negadras.yutnd.mongodb.net/negadras?retryWrites=true&w=majority";
