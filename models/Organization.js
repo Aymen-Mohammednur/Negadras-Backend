@@ -5,11 +5,7 @@ const OrganizationSchema = mongoose.Schema({
         type: String,
         required: true,
         maxLength: 50
-    },
-    businessId: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Buisness',
-    },
+    }
 });
 
 

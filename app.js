@@ -5,13 +5,13 @@ const app = express();
 app.use(express.json());
 
 // importing routes
-const buisnessRoute = require('./routes/buisness');
-const reviewRoute = require('./routes/review');
-const userRoute = require('./routes/user');
+const businessRoute = require('./routes/business');
+const reviewRoute = require('./routes/business');
+const userRoute = require('./routes/business');
 
-app.use('/buisness', buisnessRoute);
+app.use('/business', businessRoute);
 app.use('/review', reviewRoute);
-app.use('/user',userRoute);
+app.use('/user', userRoute);
 
 // connecting to database
 const dbURI = "mongodb+srv://negadras:negadras@negadras.yutnd.mongodb.net/negadras?retryWrites=true&w=majority";

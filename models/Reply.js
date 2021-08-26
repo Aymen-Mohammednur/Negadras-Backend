@@ -11,7 +11,7 @@ const ReplySchema = mongoose.Schema({
     },
     businessId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Buisness',
+        ref: 'Business',
     },
     reviewId: {
         type: mongoose.Schema.Types.ObjectId,

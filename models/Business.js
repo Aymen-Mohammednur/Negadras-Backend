@@ -1,14 +1,9 @@
 const mongoose = require('mongoose');
 
-const BuisnessSchema = mongoose.Schema({
+const BusinessSchema = mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Name is required'],
-        maxLength: 50
-    },
-    type: {
-        type: String,
-        required: [true, 'Type is required'],
         maxLength: 50
     },
     location: {
@@ -28,11 +23,15 @@ const BuisnessSchema = mongoose.Schema({
         type: String,
         maxLength: 100
     },
-    organization: {
-        type: mongoose.Schema.ObjectId,
+    organizationId: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Organizations',
+    },
+    categoryId: {
+        type: mongoose.Schema.Types, ObjectId,
+        ref: 'Categories'
     }
 });
 
 
-module.exports = mongoose.model('Buisness', BuisnessSchema);
+module.exports = mongoose.model('Business', BusinessSchema);
