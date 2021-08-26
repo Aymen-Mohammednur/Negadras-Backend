@@ -49,6 +49,17 @@ const getBusinessByCategory = async (request, response) => {
     }
 }
 
+
+const filterBusiness = async (request, response) => {
+    try {
+        const query = request.params.query;
+        const business = await Business.find({$or: [{ name: query }, { location: query }, { phoneNumber: query }, { website: query }, { email: query }]});
+        response.status(200).json(business);
+    } catch (error) {
+        response.jsom({ message: error });
+    }
+}
+
 const editBusiness = async (request, response) => {
     // response.send("PUT business");
 
