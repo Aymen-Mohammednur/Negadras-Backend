@@ -26,6 +26,7 @@ const BusinessSchema = mongoose.Schema({
   organizationId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Organizations",
+    default: null
   },
   categoryId: {
     type: mongoose.Schema.Types.ObjectId,
