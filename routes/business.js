@@ -16,5 +16,7 @@ router.put('/:id', verifyToken, businessController.editBusiness);
 
 router.delete('/:id', verifyToken, businessController.deleteBusiness);
 
+router.patch('/:id', verifyToken, businessController.addOrganizationToBusiness);
+
 
 module.exports = router;
