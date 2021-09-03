@@ -1,4 +1,5 @@
-const Category = require('../models/Category')
+const Category = require('../models/Category');
+const { categoryValidation } = require("../middlewares/validation");
 
 const getAllCategories = async (request, response) => {
 
@@ -11,6 +12,11 @@ const getAllCategories = async (request, response) => {
 }
 
 const postCategory = async (request, response) => {
+    const { error } = categoryValidation(req.body);
+    if (error) {
+        // console.log("ERROR: ", error);
+        return res.status(400).send({ message: error.details[0].message });
+    }
 
     const category = new Category(request.body);
 
@@ -35,6 +41,11 @@ const getOneCategory = async (request, response) => {
 
 
 const editCategory = async (request, response) => {
+    const { error } = categoryValidation(req.body);
+    if (error) {
+        // console.log("ERROR: ", error);
+        return res.status(400).send({ message: error.details[0].message });
+    }
 
     try {
         const id = request.params.id;

@@ -1,4 +1,5 @@
-const Organization = require('../models/Organization')
+const Organization = require('../models/Organization');
+const { organizationValidation } = require("../middlewares/validation");
 
 const getAllOrganizations = async (request, response) => {
 
@@ -11,7 +12,12 @@ const getAllOrganizations = async (request, response) => {
 }
 
 const postOrganization = async (request, response) => {
+    const { error } = organizationValidation(req.body);
 
+    if (error) {
+        // console.log("ERROR: ", error);
+        return res.status(400).send({ message: error.details[0].message });
+    }
     const organization = new Organization(request.body);
 
     try {
@@ -35,6 +41,12 @@ const getOneOrganization = async (request, response) => {
 
 
 const editOrganization = async (request, response) => {
+    const { error } = organizationValidation(req.body);
+
+    if (error) {
+        // console.log("ERROR: ", error);
+        return res.status(400).send({ message: error.details[0].message });
+    }
 
     try {
         const id = request.params.id;
