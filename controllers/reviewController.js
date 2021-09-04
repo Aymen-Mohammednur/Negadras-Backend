@@ -1,6 +1,13 @@
 const Review = require('../models/Review');
+const { reviewValidation } = require('../middlewares/validation');
 
 const postReview = async (request, response) => {
+    const { error } = reviewValidation(req.body);
+
+    if (error) {
+        // console.log("ERROR: ", error);
+        return res.status(400).send({ message: error.details[0].message });
+    }
     const review = new Review(request.body);
 
     try {
@@ -33,7 +40,12 @@ const getOneReview = async (request, response) => {
 }
 
 const editReview = async (request, response) => {
+    const { error } = reviewValidation(req.body);
 
+    if (error) {
+        // console.log("ERROR: ", error);
+        return res.status(400).send({ message: error.details[0].message });
+    }
     try {
         const id = request.params.id;
         const updatedReview = await Review.findByIdAndUpdate(id, request.body, {
