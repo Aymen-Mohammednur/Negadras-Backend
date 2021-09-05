@@ -1,35 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const businessController = require('../controllers/businessController');
+const verifyToken = require('../middlewares/verifyToken');
 
-// router.post('/', (request, response) => {
-//     response.send("POST business");
 
-//     console.log(request.body);
+router.post('/', verifyToken, businessController.postBusiness);
 
-//     const business = new business(request.body);
+router.get('/', verifyToken, businessController.getAllBusiness);
 
-//     business.save()
-//     .then(data => {
-//         response.status(200).json(data);
-//     })
-//     .catch(error => {
-//         response.json({ message: error });
-//     });
+router.get('/:id', verifyToken, businessController.getOneBusiness);
 
-// });
+router.get('/filter/:category', verifyToken, businessController.getBusinessByCategory);
 
-router.post('/', businessController.postBusiness);
+router.put('/:id', verifyToken, businessController.editBusiness);
 
-router.get('/', businessController.getAllBusiness);
-
-router.get('/:id', businessController.getOneBusiness);
-
-router.get('/filter/:category', businessController.getBusinessByCategory);
-
-router.put('/:id', businessController.editBusiness);
-
-router.delete('/:id', businessController.deleteBusiness);
+router.delete('/:id', verifyToken, businessController.deleteBusiness);
 
 
 module.exports = router;

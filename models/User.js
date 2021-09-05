@@ -4,12 +4,14 @@ const UserSchema = mongoose.Schema({
     firstName: {
         type: String,
         required: true,
-        maxLength: 50
+        min: 5,
+        max: 256
     },
     lastName: {
         type: String,
         required: true,
-        maxLength: 50
+        min: 5,
+        max: 256
     },
     username: {
         type: String,
@@ -25,8 +27,9 @@ const UserSchema = mongoose.Schema({
     role: {
         type: String,
         required: true,
-        maxLength: 10
-    }
+        maxLength: 256,
+        default: 'NormalUser'
+    },
 });
 
 // virtual for users fullName
