@@ -32,15 +32,25 @@ const getOneUser = async (request, response) => {
 
 const editUser = async (request, response) => {
     try {
-        const id = request.params.id;
-        const toBeEdited = await User.findById(id);
-        toBeEdited.sub = request.body.sub;
-        const editedUser = await User.save();
+        const editedUser = await User.findByIdAndUpdate(id, request.body, {
+            new: true,
+            runValidators: true,
+        });
         response.status(200).json(editedUser);
     } catch (error) {
         response.json({ message: error });
     }
 }
+
+const upgradeUserToOwner = async (request, response) => {
+    try {
+        const patchedUser = await User.updateOne({ _id: id }, { $set: {role: request.body.role} });
+        response.status(200).json(patchedUser);
+    } catch (error) {
+        response.json({ message: error });
+    }
+}
+
 
 const deleteUser = async (request, response) => {
     try {
@@ -57,5 +67,6 @@ module.exports = {
     getAllUsers,
     getOneUser,
     editUser,
-    deleteUser
+    deleteUser,
+    upgradeUserToOwner
 }
