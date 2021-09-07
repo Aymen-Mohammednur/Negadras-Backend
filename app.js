@@ -6,17 +6,19 @@ require('dotenv').config();
 
 // importing routes
 const businessRoute = require("./routes/business");
-const reviewRoute = require("./routes/business");
-const userRoute = require("./routes/business");
+const reviewRoute = require("./routes/review");
+const userRoute = require("./routes/user");
 const uploadRoute = require("./routes/upload");
 const authRoute = require('./routes/auth');
+const categoryRoute = require('./routes/category');
 
 
 app.use("/api/business", businessRoute);
 app.use("/api/review", reviewRoute);
 app.use("/api/user", userRoute);
 app.use("/api/upload", uploadRoute);
-app.use('/api', authRoute);
+app.use('/api/auth', authRoute);
+app.use('/api/category', categoryRoute);
 
 // connecting to database
 mongoose

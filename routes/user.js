@@ -2,14 +2,15 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController')
 
-// USING ASYNC
 router.post('/', userController.createUser);
 
 router.get('/', userController.getAllUsers);
 
 router.get('/:id', userController.getOneUser);
 
-router.patch('/:id', userController.editUser);
+router.put('/:id', userController.editUser);
+
+router.patch('/:id', userController.upgradeUserToOwner);
 
 router.delete('/:id', userController.deleteUser);
 
