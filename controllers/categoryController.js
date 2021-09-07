@@ -34,11 +34,35 @@ const getOneCategory = async (request, response) => {
 }
 
 
+const editCategory = async (request, response) => {
 
+    try {
+        const id = request.params.id;
+        const updatedCategory = await Category.findByIdAndUpdate(id, request.body, {
+            new: true,
+            runValidators: true,
+        });
+        response.status(200).json(updatedCategory);
+    } catch (error) {
+        response.status(404).json({ message: error });
+    }
+}
+
+const deleteCategory = async (request, response) => {
+
+    try {
+        const id = request.params.id;
+        const removedCategory = await Category.findByIdAndDelete(id);
+        response.status(204).json(removedCategory);
+    } catch (error) {
+        response.json({ message: error });
+    }
+}
 
 module.exports = {
     getAllCategories,
     postCategory,
     getOneCategory,
-    
+    editCategory,
+    deleteCategory
 }
