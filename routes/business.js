@@ -6,7 +6,7 @@ const verifyToken = require('../middlewares/verifyToken');
 
 router.post('/', verifyToken, businessController.postBusiness);
 
-router.get('/', verifyToken, businessController.getAllBusiness);
+router.get('/', verifyToken, businessController.getBusiness);
 
 router.get('/:id', verifyToken, businessController.getOneBusiness);
 

@@ -15,11 +15,17 @@ const postBusiness = async (request, response) => {
     }
 }
 
-const getAllBusiness = async (request, response) => {
+const getBusiness = async (request, response) => {
     // response.send("GET business");
+    let { keyword } = req.query;
+    let business;
 
     try {
-        const business = await Business.find();
+        if (keyword) {
+            business = await Business.find({ $text: { $search: keyword } });
+        } else {
+            business = await Business.find();
+        }
         response.status(200).json(business);
     } catch (error) {
         response.json({ message: error });
@@ -101,7 +107,7 @@ const deleteBusiness = async (request, response) => {
 
 module.exports = {
     postBusiness,
-    getAllBusiness,
+    getBusiness,
     getOneBusiness,
     editBusiness,
     deleteBusiness,
