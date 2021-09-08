@@ -32,6 +32,15 @@ const DB_URL = `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}`;
  * Make sure to do mongod in the terminal! that will start the database locally.
  */
 
+/**
+ * use this for .env file. this is not pushed.
+ *
+ * MONGO_HOSTNAME=127.0.0.1
+ * MONGO_PORT=27017
+ * MONGO_DB=negadras
+ * ACCESS_KEY=Hello
+ */
+
 // connecting to database
 mongoose
   .connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })

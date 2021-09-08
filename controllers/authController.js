@@ -7,9 +7,14 @@ const {
 } = require("../middlewares/validation");
 
 const register = async (req, res) => {
+  //   console.log("REQUEST: ", req);
   // Lets validate
   const { error } = registerValidation(req.body);
-  if (error) return res.status(400).send({ message: error.details[0].message });
+
+  if (error) {
+    // console.log("ERROR: ", error);
+    return res.status(400).send({ message: error.details[0].message });
+  }
   // if (error) return res.status(400).send(error.details[0].message);
 
   // Checking if the user is already in the database
@@ -23,8 +28,8 @@ const register = async (req, res) => {
 
   // Create a new user
   const user = new User({
-    firstName: req.body.firstname,
-    lastName: req.body.lastname,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     username: req.body.username,
     password: hashedPassword,
   });
