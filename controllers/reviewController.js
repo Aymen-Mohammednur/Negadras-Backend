@@ -13,7 +13,19 @@ const postReview = async (request, response) => {
 
 const getAllReview = async (request, response) => {
     try {
-        const review = await Review.find();
+        const reviews = await Review.find();
+        response.status(200).json(reviews);
+    } catch (error) {
+        response.json({ message: error });
+    }
+}
+
+const getOneReview = async (request, response) => {
+    // response.send("GET specific business");
+
+    try {
+        const id = request.params.id;
+        const review = await Review.findById(id);
         response.status(200).json(review);
     } catch (error) {
         response.json({ message: error });
@@ -24,10 +36,21 @@ const editReview = async (request, response) => {
 
     try {
         const id = request.params.id;
-        const toBeUpdated = await Review.findById(id);
-        toBeUpdated.sub = request.body.sub;
-        const updatedReview = await Review.save();
+        const updatedReview = await Review.findByIdAndUpdate(id, request.body, {
+            new: true,
+            runValidators: true,
+        });
         response.status(200).json(updatedReview);
+    } catch (error) {
+        response.json({ message: error });
+    }
+}
+
+const patchReview = async (request, response) => {
+    try {
+        const id = request.params.id;
+        const patchedReview = await Review.updateOne({ _id: id }, { $set: { reviewText: request.body.reviewText } });
+        response.status(200).json(patchedReview);
     } catch (error) {
         response.json({ message: error });
     }
@@ -47,5 +70,6 @@ module.exports = {
     postReview,
     getAllReview,
     editReview,
-    deleteReview
+    deleteReview,
+    patchReview
 }

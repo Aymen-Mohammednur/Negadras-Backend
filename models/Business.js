@@ -30,6 +30,7 @@ const BusinessSchema = mongoose.Schema({
   categoryId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Categories",
+    required: true
   },
 });
 
