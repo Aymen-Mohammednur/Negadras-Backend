@@ -71,5 +71,6 @@ module.exports = {
     getAllReview,
     editReview,
     deleteReview,
-    patchReview
+    patchReview,
+    getOneReview
 }

@@ -8,14 +8,17 @@ const ReplySchema = mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users',
+        required: true
     },
     businessId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Business',
+        required: true
     },
     reviewId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Reviews',
+        required: true
     },
 });
 

@@ -14,6 +14,7 @@ const userRoute = require("./routes/user");
 const uploadRoute = require("./routes/upload");
 const authRoute = require("./routes/auth");
 const categoryRoute = require("./routes/category");
+const organizationRoute = require("./routes/organization");
 
 app.use("/api/business", businessRoute);
 app.use("/api/review", reviewRoute);
@@ -21,11 +22,13 @@ app.use("/api/user", userRoute);
 app.use("/api/upload", uploadRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/category", categoryRoute);
+app.use("/api/organization", organizationRoute);
 
 const MONGO_HOSTNAME = process.env.MONGO_HOSTNAME;
 const MONGO_PORT = process.env.MONGO_PORT;
 const MONGO_DB = process.env.MONGO_DB;
 
+// FOR EVERYONE ELSE
 //const DB_URL = `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}`;
 
 // FOR AYMEN

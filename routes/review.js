@@ -8,7 +8,9 @@ router.post('/', reviewController.postReview);
 
 router.get('/', reviewController.getAllReview);
 
-router.patch('/:id', reviewController.editReview);
+router.patch('/:id', reviewController.patchReview);
+
+router.put('/:id', reviewController.editReview);
 
 router.delete('/:id', reviewController.deleteReview);
 
