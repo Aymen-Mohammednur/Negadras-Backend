@@ -17,7 +17,7 @@ const postCategory = async (request, response) => {
         // console.log("ERROR: ", error);
         return res.status(400).send({ message: error.details[0].message });
     }
-
+    
     const category = new Category(request.body);
 
     try {
@@ -46,7 +46,7 @@ const editCategory = async (request, response) => {
         // console.log("ERROR: ", error);
         return res.status(400).send({ message: error.details[0].message });
     }
-
+    
     try {
         const id = request.params.id;
         const updatedCategory = await Category.findByIdAndUpdate(id, request.body, {

@@ -67,6 +67,16 @@ const replyValidation = (data) => {
   return schema.validate(data);
 }
 
+const userValidation = (data) => {
+  const schema = Joi.object({
+    firstName: Joi.string().min(2).max(200).required(),
+    lastName: Joi.string().required(),
+    businessId: Joi.string().required(),
+    reviewId: Joi.string().required(),
+  });
+  return schema.validate(data);
+}
+
 module.exports = {
   registerValidation,
   loginValidation,

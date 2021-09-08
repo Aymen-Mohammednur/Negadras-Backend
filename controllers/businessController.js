@@ -1,9 +1,14 @@
 const Business = require('../models/Business');
+const { businessValidation  }= require('../middlewares/validation');
 
 const postBusiness = async (request, response) => {
     // response.send("POST business");
 
-    console.log(request.body);
+    // console.log(request.body);
+    const {error} = businessValidation(request.body);
+    if (error) {
+        return res.status(400).send({ message: error.details[0].message });
+    }
 
     const business = new Business(request.body);
 
@@ -38,6 +43,9 @@ const getOneBusiness = async (request, response) => {
     try {
         const id = request.params.id;
         const business = await Business.findById(id);
+        if (!business) {
+            return response.status(404).send({error: "Business not found"});
+        }
         response.status(200).json(business);
     } catch (error) {
         response.json({ message: error });
@@ -68,6 +76,10 @@ const searchBusiness = async (request, response) => {
 
 const editBusiness = async (request, response) => {
     // response.send("PUT business");
+    const {error} = businessValidation(request.body);
+    if (error) {
+        return res.send({ message: error.details[0].message });
+    }
 
     try {
         const id = request.params.id;
@@ -103,6 +115,18 @@ const deleteBusiness = async (request, response) => {
     //     })
 }
 
+const addOrganizationToBusiness = async (request, response) => {
+    try {
+        const id = request.params.id;
+        const orgId = request.body.organizationId;
+        const business = await Business.updateOne({_id : id}, {$set: {organizationId: orgId}});
+        if (!business) {
+            return response.status(404).json({error: "Business not found"});
+        }
+    } catch(e) {
+        response.status(400).json({error: error});
+    }
+}
 
 
 module.exports = {
@@ -112,5 +136,6 @@ module.exports = {
     editBusiness,
     deleteBusiness,
     getBusinessByCategory,
-    searchBusiness
+    searchBusiness,
+    addOrganizationToBusiness
 }
