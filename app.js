@@ -29,10 +29,7 @@ const MONGO_PORT = process.env.MONGO_PORT;
 const MONGO_DB = process.env.MONGO_DB;
 
 // FOR EVERYONE ELSE
-//const DB_URL = `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}`;
-
-// FOR AYMEN
-const DB_URL = process.env.DB_CONNECT_OFFLINE;
+const DB_URL = `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}`;
 
 /**
  * Make sure to do mongod in the terminal! that will start the database locally.
@@ -51,7 +48,7 @@ const DB_URL = process.env.DB_CONNECT_OFFLINE;
 mongoose
   .connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((result) => {
-    app.listen(3000, () => console.log("listenning at http://localhost:3000"));
+    app.listen(3000, () => console.log("listening at http://localhost:3000"));
     console.log("Connected to database!");
     // console.log("Result: ", result);
   })

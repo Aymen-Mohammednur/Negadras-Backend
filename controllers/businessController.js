@@ -7,7 +7,7 @@ const postBusiness = async (request, response) => {
     // console.log(request.body);
     const {error} = businessValidation(request.body);
     if (error) {
-        return res.status(400).send({ message: error.details[0].message });
+        return response.status(400).send({ message: error.details[0].message });
     }
 
     const business = new Business(request.body);
@@ -22,7 +22,7 @@ const postBusiness = async (request, response) => {
 
 const getBusiness = async (request, response) => {
     // response.send("GET business");
-    let { keyword } = req.query;
+    let { keyword } = request.query;
     let business;
 
     try {
@@ -55,6 +55,7 @@ const getOneBusiness = async (request, response) => {
 const getBusinessByCategory = async (request, response) => {
     try {
         const categoryId = request.params.categoryId;
+        // console.log(categoryId);
         const business = await Business.find({ categoryId: categoryId });
         response.status(200).json(business);
 
@@ -78,7 +79,7 @@ const editBusiness = async (request, response) => {
     // response.send("PUT business");
     const {error} = businessValidation(request.body);
     if (error) {
-        return res.send({ message: error.details[0].message });
+        return response.send({ message: error.details[0].message });
     }
 
     try {

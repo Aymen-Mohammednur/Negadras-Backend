@@ -13,7 +13,6 @@ const BusinessSchema = mongoose.Schema({
   },
   phoneNumber: {
     type: String,
-    maxLength: 15,
   },
   website: {
     type: String,

@@ -4,19 +4,20 @@ const businessController = require('../controllers/businessController');
 const verifyToken = require('../middlewares/verifyToken');
 
 
-router.post('/', verifyToken, businessController.postBusiness);
+// router.post('/', verifyToken, businessController.postBusiness);
+router.post('/', businessController.postBusiness);
 
-router.get('/', verifyToken, businessController.getBusiness);
+router.get('/', businessController.getBusiness);
 
-router.get('/:id', verifyToken, businessController.getOneBusiness);
+router.get('/:id', businessController.getOneBusiness);
 
-router.get('/filter/:category', verifyToken, businessController.getBusinessByCategory);
+router.get('/filter/:categoryId', businessController.getBusinessByCategory);
 
-router.put('/:id', verifyToken, businessController.editBusiness);
+router.put('/:id', businessController.editBusiness);
 
-router.delete('/:id', verifyToken, businessController.deleteBusiness);
+router.delete('/:id', businessController.deleteBusiness);
 
-router.patch('/:id', verifyToken, businessController.addOrganizationToBusiness);
+router.patch('/:id', businessController.addOrganizationToBusiness);
 
 
 module.exports = router;

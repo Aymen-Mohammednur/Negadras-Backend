@@ -28,7 +28,7 @@ const businessValidation = (data) => {
     website: Joi.string().min(5),
     email: Joi.string().min(5).email(),
     organizationId: Joi.string(),
-    categoryId: Joi.string(),
+    categoryId: Joi.string().required(),
   });
   return schema.validate(data);
 }
