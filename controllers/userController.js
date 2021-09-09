@@ -40,7 +40,8 @@ const changeUsername = async (request, response) => {
     }
     try {
         const id = request.params.id;
-        const changedUsernameUser = await User.updateOne({ _id: id }, { $set: { username: request.body.username } });
+        const changedUsernameUser = await User.findByIdAndUpdate(id, request.body);
+        console.log(changedUsernameUser);
         response.status(200).send(changedUsernameUser);
     } catch (error) {
         response.status(400).json({ error: error });
@@ -50,7 +51,7 @@ const changeUsername = async (request, response) => {
 const changePassword = async (request, response) => {
 
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    const hashedPassword = await bcrypt.hash(request.body.password, salt);
 
     try {
         const id = request.params.id;

@@ -12,10 +12,10 @@ const getAllCategories = async (request, response) => {
 }
 
 const postCategory = async (request, response) => {
-    const { error } = categoryValidation(req.body);
+    const { error } = categoryValidation(request.body);
     if (error) {
         // console.log("ERROR: ", error);
-        return res.status(400).send({ message: error.details[0].message });
+        return response.status(400).send({ message: error.details[0].message });
     }
     
     const category = new Category(request.body);
@@ -41,10 +41,10 @@ const getOneCategory = async (request, response) => {
 
 
 const editCategory = async (request, response) => {
-    const { error } = categoryValidation(req.body);
+    const { error } = categoryValidation(request.body);
     if (error) {
         // console.log("ERROR: ", error);
-        return res.status(400).send({ message: error.details[0].message });
+        return response.status(400).send({ message: error.details[0].message });
     }
     
     try {

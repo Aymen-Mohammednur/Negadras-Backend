@@ -2,11 +2,11 @@ const Reply = require('../models/Reply');
 const { replyValidation } = require('../middlewares/validation');
 
 const postReply = async (request, response) => {
-    const { error } = replyValidation(req.body);
+    const { error } = replyValidation(request.body);
 
     if (error) {
         // console.log("ERROR: ", error);
-        return res.status(400).send({ message: error.details[0].message });
+        return response.status(400).send({ message: error.details[0].message });
     }
     const reply = new Reply(request.body);
 
@@ -39,11 +39,11 @@ const getOneReply = async (request, response) => {
 }
 
 const editReply = async (request, response) => {
-    const { error } = replyValidation(req.body);
+    const { error } = replyValidation(request.body);
 
     if (error) {
         // console.log("ERROR: ", error);
-        return res.status(400).send({ message: error.details[0].message });
+        return response.status(400).send({ message: error.details[0].message });
     }
     
     try {

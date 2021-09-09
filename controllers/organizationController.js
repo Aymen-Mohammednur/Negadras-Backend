@@ -12,11 +12,11 @@ const getAllOrganizations = async (request, response) => {
 }
 
 const postOrganization = async (request, response) => {
-    const { error } = organizationValidation(req.body);
+    const { error } = organizationValidation(request.body);
 
     if (error) {
         // console.log("ERROR: ", error);
-        return res.status(400).send({ message: error.details[0].message });
+        return response.status(400).send({ message: error.details[0].message });
     }
     const organization = new Organization(request.body);
 
@@ -41,11 +41,11 @@ const getOneOrganization = async (request, response) => {
 
 
 const editOrganization = async (request, response) => {
-    const { error } = organizationValidation(req.body);
+    const { error } = organizationValidation(request.body);
 
     if (error) {
         // console.log("ERROR: ", error);
-        return res.status(400).send({ message: error.details[0].message });
+        return response.status(400).send({ message: error.details[0].message });
     }
 
     try {

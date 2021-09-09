@@ -2,11 +2,11 @@ const Review = require('../models/Review');
 const { reviewValidation } = require('../middlewares/validation');
 
 const postReview = async (request, response) => {
-    const { error } = reviewValidation(req.body);
+    const { error } = reviewValidation(request.body);
 
     if (error) {
         // console.log("ERROR: ", error);
-        return res.status(400).send({ message: error.details[0].message });
+        return response.status(400).send({ message: error.details[0].message });
     }
     const review = new Review(request.body);
 
@@ -40,11 +40,11 @@ const getOneReview = async (request, response) => {
 }
 
 const editReview = async (request, response) => {
-    const { error } = reviewValidation(req.body);
+    const { error } = reviewValidation(request.body);
 
     if (error) {
         // console.log("ERROR: ", error);
-        return res.status(400).send({ message: error.details[0].message });
+        return response.status(400).send({ message: error.details[0].message });
     }
     try {
         const id = request.params.id;

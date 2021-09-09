@@ -24,10 +24,10 @@ const businessValidation = (data) => {
   const schema = Joi.object({
     name: Joi.string().min(2).max(50).required(),
     location: Joi.string().min(2).max(50).required(),
-    phoneNumber: Joi.string().min(2).max(50),
-    website: Joi.string().min(5),
-    email: Joi.string().min(5).email(),
-    organizationId: Joi.string(),
+    phoneNumber: Joi.string().min(2).max(50).allow(null),
+    website: Joi.string().min(5).allow(null),
+    email: Joi.string().min(5).email().allow(null),
+    organizationId: Joi.string().allow(null),
     categoryId: Joi.string().required(),
   });
   return schema.validate(data);
