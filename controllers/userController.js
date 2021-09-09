@@ -40,8 +40,14 @@ const changeUsername = async (request, response) => {
     }
     try {
         const id = request.params.id;
-        const changedUsernameUser = await User.findByIdAndUpdate(id, request.body);
-        console.log(changedUsernameUser);
+        // const changedUsernameUser = await User.findByIdAndUpdate(id, request.body, {
+        //     new: true,
+        //     runValidators: true
+        // });
+        const changedUsernameUser = await User.findById(id);
+        changedUsernameUser.username = request.body.username;
+        changedUsernameUser.save();
+        // console.log(changedUsernameUser);
         response.status(200).send(changedUsernameUser);
     } catch (error) {
         response.status(400).json({ error: error });
@@ -55,7 +61,14 @@ const changePassword = async (request, response) => {
 
     try {
         const id = request.params.id;
-        const changedPasswordUser = await User.updateOne({ _id: id }, { $set: { password: hashedPassword } });
+        const changedPasswordUser = await User.findById(id);
+        const validPass = await bcrypt.compare(request.body.password, changedPasswordUser.password);
+        // console.log(validPass);
+        if (validPass) {
+            return response.status(400).send({ message: "Same password detected, enter a different one" });
+        }
+        changedPasswordUser.password = hashedPassword;
+        changedPasswordUser.save();
         response.status(200).send(changedPasswordUser);
     } catch (error) {
         response.status(400).json({ error: error });
@@ -65,7 +78,10 @@ const changePassword = async (request, response) => {
 const upgradeUserToOwner = async (request, response) => {
     try {
         const id = request.params.id;
-        const patchedUser = await User.updateOne({ _id: id }, { $set: { role: request.body.role } });
+        // const patchedUser = await User.updateOne({ _id: id }, { $set: { role: request.body.role } });
+        const patchedUser = await User.findById(id);
+        patchedUser.role = "Owner";
+        patchedUser.save();
         response.status(200).json(patchedUser);
     } catch (error) {
         response.json({ error: error });
