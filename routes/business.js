@@ -11,7 +11,7 @@ router.get('/', businessController.getBusiness);
 
 router.get('/:id', businessController.getOneBusiness);
 
-router.get('/filter/:categoryId', businessController.getBusinessByCategory);
+router.get('/filter/:categoryId/:userId', businessController.getBusinessByCategory);
 
 router.put('/:id', businessController.editBusiness);
 

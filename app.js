@@ -14,6 +14,7 @@ const userRoute = require("./routes/user");
 const uploadRoute = require("./routes/upload");
 const authRoute = require("./routes/auth");
 const categoryRoute = require("./routes/category");
+const favoriteRoute = require('./routes/favorite');
 const organizationRoute = require("./routes/organization");
 
 app.use("/api/business", businessRoute);
@@ -23,6 +24,7 @@ app.use("/api/upload", uploadRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/category", categoryRoute);
 app.use("/api/organization", organizationRoute);
+app.use("/api/favorite", favoriteRoute);
 
 const MONGO_HOSTNAME = process.env.MONGO_HOSTNAME;
 const MONGO_PORT = process.env.MONGO_PORT;

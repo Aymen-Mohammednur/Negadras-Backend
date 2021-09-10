@@ -1,5 +1,6 @@
 const Business = require('../models/Business');
 const { businessValidation  }= require('../middlewares/validation');
+const Favorite = require('../models/Favorite');
 
 const postBusiness = async (request, response) => {
     // response.send("POST business");
@@ -55,9 +56,33 @@ const getOneBusiness = async (request, response) => {
 const getBusinessByCategory = async (request, response) => {
     try {
         const categoryId = request.params.categoryId;
+        const userId = request.params.userId;
+    
         // console.log(categoryId);
-        const business = await Business.find({ categoryId: categoryId });
-        response.status(200).json(business);
+        // console.log(request.params);
+        // console.log(request.params.categoryId);
+        // console.log(request.params.userId);
+        console.log("above");
+        const business = await Business.find();
+        console.log("here");
+        // console.log(business[0]);
+        const result = [];
+        // business.forEach(element => {
+        //     console.log('inside loop');
+        //     console.log(element);
+        // });
+        for(let i = 0; i < business.length; i++){
+            console.log('inside loop');
+            const businessId = business[i]._id;
+            console.log(business[i]);
+            const favorite = await Favorite.find({ $and: [{ businessId: businessId }, { userId: userId }] });
+            result.push({...business[i]._doc, isFavorite: Boolean(favorite)});
+            
+            // console.log({...business[i]._doc, isFavorite: Boolean(favorite)});
+        }
+        console.log("end");
+
+        response.status(200).send(result);
 
     } catch (error) {
         response.json({ message: error });
