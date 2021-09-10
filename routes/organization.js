@@ -4,7 +4,7 @@ const organizationController = require('../controllers/organizationController');
 
 router.get('/', organizationController.getAllOrganizations);
 
-router.get('/:id', organizationController.getOneOrganization);
+router.get('/:userId', organizationController.getOrgByUserId);
 
 router.post('/', organizationController.postOrganization);
 

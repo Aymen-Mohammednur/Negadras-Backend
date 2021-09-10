@@ -4,8 +4,12 @@ const OrganizationSchema = mongoose.Schema({
     name: {
         type: String,
         required: true,
-        maxLength: 50
-    }
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users',
+        required: true
+    },
 });
 
 

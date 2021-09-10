@@ -1,10 +1,15 @@
 const Organization = require('../models/Organization');
 const { organizationValidation } = require("../middlewares/validation");
+const { request, response } = require('express');
 
 const getAllOrganizations = async (request, response) => {
 
     try {
         const organizations = await Organization.find();
+        
+        if (organizations.length == 0) {
+            return response.status(404).send({ message: "No organizations found" });
+        }
         response.status(200).json(organizations);
     } catch (error) {
         response.json({ message: error });
@@ -71,10 +76,24 @@ const deleteOrganization = async (request, response) => {
     }
 }
 
+const getOrgByUserId = async (request, response) => {
+    try {
+        const id = request.params.userId;
+        const organizations = await Organization.find({ userId: id });
+        if (organizations.length == 0) {
+            return response.status(404).send({ message: "No organizations found for that user" });
+        }
+        response.status(200).json(organizations);
+    } catch (error) {
+        response.status(400).json({ message: error });
+    }
+}
+
 module.exports = {
     getAllOrganizations,
     postOrganization,
     getOneOrganization,
     editOrganization,
-    deleteOrganization
+    deleteOrganization,
+    getOrgByUserId
 }

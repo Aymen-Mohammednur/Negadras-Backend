@@ -43,6 +43,7 @@ const categoryValidation = (data) => {
 const organizationValidation = (data) => {
   const schema = Joi.object({
     name: Joi.string().min(2).max(50).required(),
+    userId: Joi.string().required(),
   });
   return schema.validate(data);
 }
