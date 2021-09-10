@@ -1,4 +1,5 @@
 const Review = require('../models/Review');
+const User = require('../models/User');
 const { reviewValidation } = require('../middlewares/validation');
 
 const postReview = async (request, response) => {
@@ -78,11 +79,36 @@ const deleteReview = async (request, response) => {
     }
 }
 
+const getReviewByBusiness = async (request, response) => {
+    try {
+        const businessId = request.params.businessId;
+        const reviews = await Review.find({ businessId: businessId });
+        // console.log(reviews[0]);
+
+        // const result = await reviews.map((value)=>{
+        //     const user = await User.findById(value.userId);
+        //     return {...value, user.username};
+        // })
+        resultArray = [];
+        for (let i = 0; i < reviews.length; i++) {
+            // console.log(reviews[i]);
+            const user = await User.findById(reviews[i].userId);
+            console.log(user);
+            resultArray.push({...reviews[i]._doc, username: user.username});
+        };
+        // some loop
+        response.status(200).send(resultArray);
+
+    } catch (error) {
+        response.json({ message: error });
+    }
+}
 module.exports = {
     postReview,
     getAllReview,
     editReview,
     deleteReview,
     patchReview,
-    getOneReview
+    getOneReview,
+    getReviewByBusiness
 }

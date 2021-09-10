@@ -50,28 +50,31 @@ const changeUsername = async (request, response) => {
         // console.log(changedUsernameUser);
         response.status(200).send(changedUsernameUser);
     } catch (error) {
-        response.status(400).json({ error: error });
+        response.status(400).json({ message: error });
     }
 }
 
 const changePassword = async (request, response) => {
 
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(request.body.password, salt);
+    const hashedPassword = await bcrypt.hash(request.body.newPassword, salt);
 
     try {
         const id = request.params.id;
         const changedPasswordUser = await User.findById(id);
-        const validPass = await bcrypt.compare(request.body.password, changedPasswordUser.password);
-        // console.log(validPass);
-        if (validPass) {
+        const oldPassValid = await bcrypt.compare(request.body.oldPassword, changedPasswordUser.password);
+        if (!oldPassValid) {
+            return response.status(400).send({ message: "Current password is not correct" });
+        }
+        const newPassValid = await bcrypt.compare(request.body.newPassword, changedPasswordUser.password);
+        if (newPassValid) {
             return response.status(400).send({ message: "Same password detected, enter a different one" });
         }
         changedPasswordUser.password = hashedPassword;
         changedPasswordUser.save();
         response.status(200).send(changedPasswordUser);
     } catch (error) {
-        response.status(400).json({ error: error });
+        response.status(400).json({ message: error });
     }
 }
 
@@ -84,7 +87,7 @@ const upgradeUserToOwner = async (request, response) => {
         patchedUser.save();
         response.status(200).json(patchedUser);
     } catch (error) {
-        response.json({ error: error });
+        response.json({ message: error });
     }
 }
 
@@ -92,8 +95,13 @@ const upgradeUserToOwner = async (request, response) => {
 const deleteUser = async (request, response) => {
     try {
         const id = request.params.id;
-        const removedUser = await User.remove({ _id: id });
-        response.status(204).json(removedUser);
+        const toBeDeleted = await User.findById(id);
+        const validPass = await bcrypt.compare(request.body.password, toBeDeleted.password);
+        if (!validPass) {
+            return response.status(400).send({ message: "The password you entered is not correct" });
+        }
+        const deleted = await User.findByIdAndDelete(id);
+        response.status(204).json(deleted);
     } catch (error) {
         response.json({ error: error });
     }

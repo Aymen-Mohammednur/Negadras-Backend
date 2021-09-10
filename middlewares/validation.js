@@ -3,10 +3,10 @@ const Joi = require("joi");
 // Register validation
 const registerValidation = (data) => {
   const schema = Joi.object({
-    firstName: Joi.string().min(5).max(50).required(),
-    lastName: Joi.string().min(5).max(50).required(),
-    username: Joi.string().min(5).max(50).required(),
-    password: Joi.string().min(5).required(),
+    firstName: Joi.string().min(2).max(50).required(),
+    lastName: Joi.string().min(2).max(50).required(),
+    username: Joi.string().min(4).max(50).required(),
+    password: Joi.string().min(8).required(),
   });
   console.log("DATA: ", data);
   return schema.validate(data);
@@ -14,8 +14,8 @@ const registerValidation = (data) => {
 
 const loginValidation = (data) => {
   const schema = Joi.object({
-    username: Joi.string().min(5).max(50).required(),
-    password: Joi.string().min(5).required(),
+    username: Joi.string().min(4).max(50).required(),
+    password: Joi.string().min(8).required(),
   });
   return schema.validate(data);
 };
