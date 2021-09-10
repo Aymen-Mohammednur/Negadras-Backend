@@ -14,5 +14,7 @@ router.put('/:id', reviewController.editReview);
 
 router.delete('/:id', reviewController.deleteReview);
 
+router.get('/:businessId', reviewController.getReviewByBusiness);
+
 
 module.exports = router;

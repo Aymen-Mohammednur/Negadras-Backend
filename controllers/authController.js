@@ -61,7 +61,7 @@ const login = async (req, res) => {
     expiresIn: "10m",
     algorithm: "HS256",
   });
-  res.header("access-token", token).send({ token: token });
+  res.header("access-token", token).send({ token: token, username: user.username, id: user._id });
 };
 
 module.exports = {
