@@ -46,19 +46,22 @@ const getOneOrganization = async (request, response) => {
 
 
 const editOrganization = async (request, response) => {
-    const { error } = organizationValidation(request.body);
+    // const { error } = organizationValidation(request.body);
 
-    if (error) {
-        // console.log("ERROR: ", error);
-        return response.status(400).send({ message: error.details[0].message });
-    }
+    // if (error) {
+    //     // console.log("ERROR: ", error);
+    //     return response.status(400).send({ message: error.details[0].message });
+    // }
 
     try {
         const id = request.params.id;
-        const updatedOrganization = await Organization.findByIdAndUpdate(id, request.body, {
-            new: true,
-            runValidators: true,
-        });
+        // const updatedOrganization = await Organization.findByIdAndUpdate(id, request.body, {
+        //     new: true,
+        //     runValidators: true,
+        // });
+        const updatedOrganization = await Organization.findById(id);
+        updatedOrganization.name = request.body.name;
+        updatedOrganization.save();
         response.status(200).json(updatedOrganization);
     } catch (error) {
         response.status(404).json({ message: error });

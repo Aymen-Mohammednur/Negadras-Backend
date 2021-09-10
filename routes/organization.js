@@ -8,7 +8,7 @@ router.get('/:userId', organizationController.getOrgByUserId);
 
 router.post('/', organizationController.postOrganization);
 
-router.put('/:id', organizationController.editOrganization);
+router.patch('/:id', organizationController.editOrganization);
 
 router.delete('/:id', organizationController.deleteOrganization);
 
