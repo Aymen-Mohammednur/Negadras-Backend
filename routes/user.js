@@ -4,6 +4,8 @@ const userController = require('../controllers/userController')
 
 router.get('/', userController.getAllUsers);
 
+router.post('/claim', userController.makeClaim);
+
 router.get('/:id', userController.getOneUser);
 
 router.put('/:id', userController.editUser);

@@ -17,10 +17,19 @@ router.get(
   businessController.getBusinessByCategory
 );
 
+router.get(
+  "/search/:categoryId/:userId",
+  businessController.getBusinessByParam);
+
 router.put("/:id", businessController.editBusiness);
 
 router.delete("/:id", businessController.deleteBusiness);
 
 router.patch("/:id", businessController.addOrganizationToBusiness);
+
+router.get(
+  "/filter/:categoryId/",
+  businessController.searchBusiness
+);
 
 module.exports = router;

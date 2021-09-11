@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoose_fuzzy_searching = require("custom-mongoose-fuzzy-searching");
 
 const BusinessSchema = mongoose.Schema({
   name: {
@@ -33,5 +34,7 @@ const BusinessSchema = mongoose.Schema({
     required: true
   },
 });
+
+BusinessSchema.plugin(mongoose_fuzzy_searching, { fields: ['name', 'location', 'phoneNumber', 'website', 'email'] });
 
 module.exports = mongoose.model("Business", BusinessSchema);

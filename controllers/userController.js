@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require("bcryptjs");
+const Owner = require('../models/Owner');
 
 const getAllUsers = async (request, response) => {
     try {
@@ -107,6 +108,28 @@ const deleteUser = async (request, response) => {
     }
 }
 
+const makeClaim = async (request, response) => {
+    const owner = new Owner(request.body);
+
+    try {
+        console.log("owner from model: ", owner);
+        const businessIdExists = Owner.find({businessId: request.body.businessId})
+        if (businessIdExists) {
+            return response.status(400).send({message: "Is already owned"});
+        }
+        const userId = request.body.userId
+        const patchedUser = await User.findById(userId);
+        patchedUser.role = "Owner";
+        patchedUser.save();
+        const addedOwner = await owner.save();
+        console.log("added owner: ", addedOwner);
+        response.status(201).send(addedOwner);
+    } catch (error) {
+        console.log("error while adding owner: ", error);
+        response.json({ message: error });
+    }
+}
+
 module.exports = {
     getAllUsers,
     getOneUser,
@@ -114,5 +137,6 @@ module.exports = {
     deleteUser,
     upgradeUserToOwner,
     changeUsername,
-    changePassword
+    changePassword,
+    makeClaim
 }
