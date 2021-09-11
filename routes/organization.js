@@ -1,15 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const organizationController = require('../controllers/organizationController');
+const verifyToken = require("../middlewares/verifyToken");
 
-router.get('/', organizationController.getAllOrganizations);
+router.get('/', verifyToken, organizationController.getAllOrganizations);
 
-router.get('/:userId', organizationController.getOrgByUserId);
+router.get('/:userId', verifyToken, organizationController.getOrgByUserId);
 
-router.post('/', organizationController.postOrganization);
+router.post('/', verifyToken, organizationController.postOrganization);
 
-router.patch('/:id', organizationController.editOrganization);
+router.patch('/:id', verifyToken, organizationController.editOrganization);
 
-router.delete('/:id', organizationController.deleteOrganization);
+router.delete('/:id', verifyToken, organizationController.deleteOrganization);
 
 module.exports = router;

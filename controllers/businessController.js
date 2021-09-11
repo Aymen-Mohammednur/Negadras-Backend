@@ -7,17 +7,21 @@ const postBusiness = async (request, response) => {
   // response.send("POST business");
 
   // console.log(request.body);
-  const { error } = businessValidation(request.body);
-  if (error) {
-    return response.status(400).send({ message: error.details[0].message });
-  }
+  // const { error } = businessValidation(request.body);
+  // if (error) {
+  //   return response.status(400).send({ message: error.details[0].message });
+  // }
 
   const business = new Business(request.body);
 
   try {
     const addedBusiness = await business.save();
+    console.log("ADDDDEDDDD BUSINESSSS");
+    console.log(addedBusiness);
     response.status(201).json(addedBusiness);
   } catch (error) {
+    console.log("ADD ERRORRRRRRRRRRRRRRRRRRRRRRRR");
+    console.log(error);
     response.json({ message: error });
   }
 };
@@ -244,10 +248,10 @@ const searchBusiness = async (request, response) => {
 
 const editBusiness = async (request, response) => {
   // response.send("PUT business");
-  const { error } = businessValidation(request.body);
-  if (error) {
-    return response.send({ message: error.details[0].message });
-  }
+  // const { error } = businessValidation(request.body);
+  // if (error) {
+  //   return response.send({ message: error.details[0].message });
+  // }
 
   try {
     const id = request.params.id;

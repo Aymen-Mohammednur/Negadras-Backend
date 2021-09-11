@@ -4,31 +4,31 @@ const businessController = require("../controllers/businessController");
 const verifyToken = require("../middlewares/verifyToken");
 
 // router.post('/', verifyToken, businessController.postBusiness);
-router.post("/", businessController.postBusiness);
+router.post("/", verifyToken, businessController.postBusiness);
 
-router.get("/", businessController.getBusiness);
+router.get("/", verifyToken, businessController.getBusiness);
 
-router.get("/favorites/:userId", businessController.getFavoriteBusiness);
+router.get("/favorites/:userId", verifyToken, businessController.getFavoriteBusiness);
 
-router.get("/:id", businessController.getOneBusiness);
+router.get("/:id", verifyToken, businessController.getOneBusiness);
 
 router.get(
-  "/filter/:categoryId/:userId",
+  "/filter/:categoryId/:userId", verifyToken,
   businessController.getBusinessByCategory
 );
 
 router.get(
-  "/search/:categoryId/:userId",
+  "/search/:categoryId/:userId", verifyToken,
   businessController.getBusinessByParam);
 
-router.put("/:id", businessController.editBusiness);
+router.put("/:id", verifyToken, businessController.editBusiness);
 
-router.delete("/:id", businessController.deleteBusiness);
+router.delete("/:id", verifyToken, businessController.deleteBusiness);
 
-router.patch("/:id", businessController.addOrganizationToBusiness);
+router.patch("/:id", verifyToken, businessController.addOrganizationToBusiness);
 
 router.get(
-  "/filter/:categoryId/",
+  "/filter/:categoryId/", verifyToken,
   businessController.searchBusiness
 );
 

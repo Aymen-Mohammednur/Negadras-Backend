@@ -1,22 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../controllers/userController')
+const userController = require('../controllers/userController');
+const verifyToken = require("../middlewares/verifyToken");
 
-router.get('/', userController.getAllUsers);
+router.get('/', verifyToken, userController.getAllUsers);
 
-router.post('/claim', userController.makeClaim);
+router.post('/claim', verifyToken, userController.makeClaim);
 
-router.get('/:id', userController.getOneUser);
+router.get('/:id', verifyToken, userController.getOneUser);
 
-router.put('/:id', userController.editUser);
+router.put('/:id', verifyToken, userController.editUser);
 
-router.patch('/:id', userController.upgradeUserToOwner);
+router.patch('/:id', verifyToken, userController.upgradeUserToOwner);
 
-router.patch('/password/:id', userController.changePassword);
+router.patch('/password/:id', verifyToken, userController.changePassword);
 
-router.patch('/username/:id', userController.changeUsername);
+router.patch('/username/:id', verifyToken, userController.changeUsername);
 
-router.delete('/:id', userController.deleteUser);
+router.delete('/:id', verifyToken, userController.deleteUser);
 
 
 module.exports = router;

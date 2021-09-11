@@ -113,9 +113,9 @@ const makeClaim = async (request, response) => {
 
     try {
         console.log("owner from model: ", owner);
-        const businessIdExists = Owner.find({businessId: request.body.businessId})
+        const businessIdExists = await Owner.findOne({ businessId: request.body.businessId })
         if (businessIdExists) {
-            return response.status(400).send({message: "Is already owned"});
+            return response.status(400).send({ message: "Is already owned" });
         }
         const userId = request.body.userId
         const patchedUser = await User.findById(userId);
@@ -126,7 +126,7 @@ const makeClaim = async (request, response) => {
         response.status(201).send(addedOwner);
     } catch (error) {
         console.log("error while adding owner: ", error);
-        response.json({ message: error });
+        response.status(404).json({ message: error });
     }
 }
 
