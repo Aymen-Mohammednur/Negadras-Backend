@@ -1,2 +1,6 @@
 # Negadras-Backend
-A Node.js based API for the Negadras review application.
+A Node API backend for a Flutter-Node fullstack. The backend handles user authentication, business management, business-owner data analytics, account management and data storage for the frontend.
+
+This project uses MongoDB and Mongoose for data storage and data management. 
+For authentication, this project uses JWT authentication, but we plan to add Firebase authentication for more flexibility on the user's end.
+
