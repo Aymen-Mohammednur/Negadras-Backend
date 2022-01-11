@@ -1,10 +1,6 @@
 const Favorite = require("../models/Favorite");
 
 const addToFavorites = async (request, response) => {
-  // const {error} = businessValidation(request.body);
-  // if (error) {
-  //     return response.status(400).send({ message: error.details[0].message });
-  // }
   console.log("Let's add favorite");
   console.log(request.body);
   const favorite = new Favorite(request.body);
@@ -20,11 +16,24 @@ const addToFavorites = async (request, response) => {
   }
 };
 
+// This function is only called by internal files.
+// It is not linked to any of the URL routes.
+const _getFavoritesByUserId = async (userId) => {
+  try {
+    var favorite = await Favorite.find({userId: userId});
+    var favoriteIdList = [];
+    for (var i = 0; i < favorite.length; i ++){
+      favoriteIdList.push(favorite[i].businessId);
+    }
+    return favoriteIdList;
+  } catch (error) {
+    console.log("error in fav controller . js", error);
+  }
+}
+
+
 const removeFromFavorites = async (request, response) => {
   try {
-    // const id = request.params.id;
-    // const removedBusiness = await business.findByIdAndDelete(id);
-    // const removedBusiness = await Business.remove({ _id: id });
     console.log("Let's delete favorites");
     console.log("Response.body: ", request.body);
     const bussinessId = request.body.businessId;
@@ -41,16 +50,10 @@ const removeFromFavorites = async (request, response) => {
     response.json({ message: error });
   }
 
-  // business.findByIdAndDelete(id)
-  //     .then(result => {
-  //         response.status(204).json(result);
-  //     })
-  //     .catch(error => {
-  //         response.json({ message: error });
-  //     })
 };
 
 module.exports = {
   addToFavorites,
   removeFromFavorites,
+  _getFavoritesByUserId
 };

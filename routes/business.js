@@ -1,12 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const businessController = require("../controllers/businessController");
+const recommendationController = require("../controllers/recommendationController");
 const verifyToken = require("../middlewares/verifyToken");
 
 // router.post('/', verifyToken, businessController.postBusiness);
-router.post("/", verifyToken, businessController.postBusiness);
+router.post("/",verifyToken, businessController.postBusiness);
 
-router.get("/", verifyToken, businessController.getBusiness);
+router.get("/",verifyToken, businessController.getBusiness);
+
 
 router.get("/favorites/:userId", verifyToken, businessController.getFavoriteBusiness);
 
@@ -24,6 +26,8 @@ router.get(
 router.put("/:id", verifyToken, businessController.editBusiness);
 
 router.delete("/:id", verifyToken, businessController.deleteBusiness);
+
+router.delete("/",verifyToken, businessController.deleteAllBusiness);
 
 router.patch("/:id", verifyToken, businessController.addOrganizationToBusiness);
 

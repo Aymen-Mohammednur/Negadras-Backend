@@ -16,6 +16,7 @@ const authRoute = require("./routes/auth");
 const categoryRoute = require("./routes/category");
 const favoriteRoute = require('./routes/favorite');
 const organizationRoute = require("./routes/organization");
+const recommendationRoute = require("./routes/recommendation");
 
 app.use("/api/business", businessRoute);
 app.use("/api/review", reviewRoute);
@@ -25,13 +26,14 @@ app.use("/api/auth", authRoute);
 app.use("/api/category", categoryRoute);
 app.use("/api/organization", organizationRoute);
 app.use("/api/favorite", favoriteRoute);
+app.use("/api/recommendation", recommendationRoute);
 
 const MONGO_HOSTNAME = process.env.MONGO_HOSTNAME;
 const MONGO_PORT = process.env.MONGO_PORT;
 const MONGO_DB = process.env.MONGO_DB;
 
 // FOR EVERYONE ELSE
-const DB_URL = `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}`;
+const DB_URL = `mongodb://localhost:27017/`;
 
 /**
  * Make sure to do mongod in the terminal! that will start the database locally.

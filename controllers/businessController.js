@@ -4,30 +4,18 @@ const Favorite = require("../models/Favorite");
 const Owner = require("../models/Owner");
 
 const postBusiness = async (request, response) => {
-  // response.send("POST business");
-
-  // console.log(request.body);
-  // const { error } = businessValidation(request.body);
-  // if (error) {
-  //   return response.status(400).send({ message: error.details[0].message });
-  // }
 
   const business = new Business(request.body);
 
   try {
     const addedBusiness = await business.save();
-    console.log("ADDDDEDDDD BUSINESSSS");
-    console.log(addedBusiness);
     response.status(201).json(addedBusiness);
   } catch (error) {
-    console.log("ADD ERRORRRRRRRRRRRRRRRRRRRRRRRR");
-    console.log(error);
     response.json({ message: error });
   }
 };
 
 const getBusiness = async (request, response) => {
-  // response.send("GET specific business");
 
   try {
     const business = await Business.find();
@@ -42,8 +30,6 @@ const getBusiness = async (request, response) => {
 
 
 const getOneBusiness = async (request, response) => {
-  // response.send("GET specific business");
-
   try {
     const id = request.params.id;
     const business = await Business.findById(id);
@@ -59,7 +45,6 @@ const getOneBusiness = async (request, response) => {
 const getFavoriteBusiness = async (request, response) => {
   try {
     const userId = request.params.userId;
-    console.log("about to fetch the user's favorite");
     const favorites = await Favorite.find({ userId: userId });
     if (favorites.length == 0) {
       return response.status(404).json();
@@ -164,9 +149,7 @@ const getBusinessByCategory = async (request, response) => {
     let business = await Business.find({ categoryId: categoryId });
     let result = [];
     for (let i = 0; i < business.length; i++) {
-      console.log("inside loop");
       const businessId = business[i]._id;
-      console.log(business[i]);
       const favorite = await Favorite.findOne({
         businessId: businessId,
         userId: userId,
@@ -175,7 +158,6 @@ const getBusinessByCategory = async (request, response) => {
         businessId: businessId,
         userId: userId,
       });
-      console.log("Found favorite? ", owner, "<<<<");
 
       result.push({
         ...business[i]._doc,
@@ -191,42 +173,6 @@ const getBusinessByCategory = async (request, response) => {
   }
 
 };
-
-// const getBusinessByCategory = async (request, response) => {
-//   try {
-//     const categoryId = request.params.categoryId;
-//     const userId = request.params.userId;
-
-//     console.log("above");
-//     const business = await Business.find({ categoryId: categoryId });
-//     console.log("here");
-//     const result = [];
-
-//     for (let i = 0; i < business.length; i++) {
-//       console.log("inside loop");
-//       const businessId = business[i]._id;
-//       console.log(business[i]);
-//       const favorite = await Favorite.findOne({
-//         businessId: businessId,
-//         userId: userId,
-//       });
-//       console.log("Found favorite? ", favorite, "<<<<");
-
-//       result.push({
-//         ...business[i]._doc,
-//         isFavorite: Boolean(favorite),
-//         avgRating: 2.5,
-//       });
-
-//       // console.log({...business[i]._doc, isFavorite: Boolean(favorite)});
-//     }
-//     console.log("end");
-
-//     response.status(200).send(result);
-//   } catch (error) {
-//     response.json({ message: error });
-//   }
-// };
 
 const searchBusiness = async (request, response) => {
   try {
@@ -247,15 +193,10 @@ const searchBusiness = async (request, response) => {
 };
 
 const editBusiness = async (request, response) => {
-  // response.send("PUT business");
-  // const { error } = businessValidation(request.body);
-  // if (error) {
-  //   return response.send({ message: error.details[0].message });
-  // }
+
 
   try {
     const id = request.params.id;
-    // const updatedBusiness = await Business.updateOne({ _id: id }, { $set: {title: request.body.title} });
     const updatedBusiness = await Business.findByIdAndUpdate(id, request.body, {
       new: true,
       runValidators: true,
@@ -269,22 +210,23 @@ const editBusiness = async (request, response) => {
 const deleteBusiness = async (request, response) => {
   try {
     const id = request.params.id;
-    // const removedBusiness = await business.findByIdAndDelete(id);
-    // const removedBusiness = await Business.remove({ _id: id });
     const removedBusiness = await Business.findByIdAndDelete(id);
     response.status(204).json(removedBusiness);
   } catch (error) {
     response.json({ message: error });
   }
 
-  // business.findByIdAndDelete(id)
-  //     .then(result => {
-  //         response.status(204).json(result);
-  //     })
-  //     .catch(error => {
-  //         response.json({ message: error });
-  //     })
 };
+
+const deleteAllBusiness = async (request, response) => {
+  try {
+    const removedBusiness = await Business.deleteMany();
+    response.status(204).json(removedBusiness);
+  } catch (error) {
+    response.json({ message: error });
+  }
+};
+
 
 const addOrganizationToBusiness = async (request, response) => {
   try {
@@ -294,8 +236,6 @@ const addOrganizationToBusiness = async (request, response) => {
       return response.status(404).json({ error: "Business not found" });
     }
     updatedBusiness.organizationId = request.body.organizationId;
-    // const business = await Business.updateOne({_id : id}, {$set: {organizationId: orgId}});
-    // const id = request.params.id;
     updatedBusiness.save();
     response.status(200).json(updatedBusiness);
   } catch (e) {
@@ -313,5 +253,6 @@ module.exports = {
   searchBusiness,
   addOrganizationToBusiness,
   getFavoriteBusiness,
-  getBusinessByParam
+  getBusinessByParam,
+  deleteAllBusiness
 };

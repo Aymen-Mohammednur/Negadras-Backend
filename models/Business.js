@@ -23,6 +23,9 @@ const BusinessSchema = mongoose.Schema({
     type: String,
     maxLength: 100,
   },
+  tags: {
+    type: [String],
+  },
   organizationId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Organizations",
