@@ -6,6 +6,7 @@ var INITIALISED_TAG_LIST;
 
 const calculateAttributeScoreForAllObjects = async () => {
     var businessList = await Business.find();
+    businessList = shuffle(businessList);
     var mapping = {};
     
     for (var i = 0; i < businessList.length; i++){
@@ -25,7 +26,7 @@ const  calculateUserProfile = async (userId, tagScores) => {
 const  calculateIDF = async () => {
     var businessList = await Business.find();
     var l = businessList.length;
-    var tagList = INITIALISED_TAG_LIST;
+    var tagList = Object.assign({}, INITIALISED_TAG_LIST);
     var idfList = JSON.parse(JSON.stringify(tagList));
     for (var i = 0; i < businessList.length; i++){
         var business = businessList[i];
@@ -100,8 +101,16 @@ function generateProfile(userFavorites, tagScores){
     return userTagScores;
 
 }
-
-
+function shuffle(array) {
+    let currentIndex = array.length,  randomIndex;
+    while (currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+    return array;
+  }
 
 module.exports = {
     calculateAttributeScoreForAllObjects,

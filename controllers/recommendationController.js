@@ -10,6 +10,7 @@ const getList = async (req, res) => {
   var businessIdList = controllerHelpers.multiplyAndSort(attributeScoreForAllObjects, userProfile, idfList);
 
 
+  console.log(businessIdList);
   var businessList = await controllerHelpers.convertIdsToBusinesses(businessIdList);
   
   res.json(businessList);
