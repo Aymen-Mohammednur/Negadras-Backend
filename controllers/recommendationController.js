@@ -2,7 +2,8 @@ controllerHelpers = require('./ControllerHelpers');
 
 
 const getList = async (req, res) => {
-  var userId = req.body.userId;
+  var userId = req.params.userId;
+  
 
   var attributeScoreForAllObjects = await controllerHelpers.calculateAttributeScoreForAllObjects();
   var userProfile = await controllerHelpers.calculateUserProfile(userId, attributeScoreForAllObjects); // user to attribute
@@ -10,7 +11,6 @@ const getList = async (req, res) => {
   var businessIdList = controllerHelpers.multiplyAndSort(attributeScoreForAllObjects, userProfile, idfList);
 
 
-  console.log(businessIdList);
   var businessList = await controllerHelpers.convertIdsToBusinesses(businessIdList);
   
   res.json(businessList);

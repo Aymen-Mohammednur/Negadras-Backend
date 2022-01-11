@@ -175,6 +175,7 @@ const getBusinessByCategory = async (request, response) => {
 };
 
 const searchBusiness = async (request, response) => {
+  console.log("in search businses");
   try {
     const query = request.params.queryParameter;
     const business = await Business.find({
