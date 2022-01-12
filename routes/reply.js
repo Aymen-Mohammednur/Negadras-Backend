@@ -8,7 +8,7 @@ router.post('/', replyController.postReply);
 
 router.get('/', replyController.getAllReply);
 
-router.get('/:id', replyController.getOneReply)
+router.get('/:id', replyController.getOneReply);
 
 router.put('/:id', replyController.editReply);
 
