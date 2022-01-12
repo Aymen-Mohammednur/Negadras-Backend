@@ -31,14 +31,14 @@ const businessValidation = (data) => {
     categoryId: Joi.string().required(),
   });
   return schema.validate(data);
-}
+};
 
 const categoryValidation = (data) => {
   const schema = Joi.object({
     name: Joi.string().min(2).max(50).required(),
   });
   return schema.validate(data);
-}
+};
 
 const organizationValidation = (data) => {
   const schema = Joi.object({
@@ -46,7 +46,7 @@ const organizationValidation = (data) => {
     userId: Joi.string().required(),
   });
   return schema.validate(data);
-}
+};
 
 const reviewValidation = (data) => {
   const schema = Joi.object({
@@ -56,7 +56,7 @@ const reviewValidation = (data) => {
     businessId: Joi.string().required(),
   });
   return schema.validate(data);
-}
+};
 
 const replyValidation = (data) => {
   const schema = Joi.object({
@@ -66,7 +66,7 @@ const replyValidation = (data) => {
     reviewId: Joi.string().required(),
   });
   return schema.validate(data);
-}
+};
 
 const userValidation = (data) => {
   const schema = Joi.object({
@@ -76,7 +76,7 @@ const userValidation = (data) => {
     reviewId: Joi.string().required(),
   });
   return schema.validate(data);
-}
+};
 
 module.exports = {
   registerValidation,
