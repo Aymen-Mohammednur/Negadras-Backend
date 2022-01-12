@@ -9,7 +9,7 @@ const getAllCategories = async (request, response) => {
     } catch (error) {
         response.json({ message: error });
     }
-}
+};
 
 const postCategory = async (request, response) => {
     const { error } = categoryValidation(request.body);
@@ -23,10 +23,10 @@ const postCategory = async (request, response) => {
     try {
         const addedCategory = await category.save();
         response.status(201).json(addedCategory);
-    } catch (error) {
-        response.json({ message: error });
+    } catch (e) {
+        response.json({ message: e });
     }
-}
+};
 
 const getOneCategory = async (request, response) => {
 
@@ -37,7 +37,7 @@ const getOneCategory = async (request, response) => {
     } catch (error) {
         response.json({ message: error });
     }
-}
+};
 
 
 const editCategory = async (request, response) => {
@@ -54,10 +54,10 @@ const editCategory = async (request, response) => {
             runValidators: true,
         });
         response.status(200).json(updatedCategory);
-    } catch (error) {
-        response.status(404).json({ message: error });
+    } catch (e) {
+        response.status(404).json({ message: e });
     }
-}
+};
 
 const deleteCategory = async (request, response) => {
 
@@ -65,10 +65,10 @@ const deleteCategory = async (request, response) => {
         const id = request.params.id;
         const removedCategory = await Category.findByIdAndDelete(id);
         response.status(204).json(removedCategory);
-    } catch (error) {
-        response.json({ message: error });
+    } catch (err) {
+        response.json({ message: err });
     }
-}
+};
 
 module.exports = {
     getAllCategories,
@@ -76,4 +76,4 @@ module.exports = {
     getOneCategory,
     editCategory,
     deleteCategory
-}
+};

@@ -14,14 +14,14 @@ const calculateAttributeScoreForAllObjects = async () => {
         mapping [business._id] = createTagMapping(business);
     }
     return mapping;
-}
+};
 
 const  calculateUserProfile = async (userId, tagScores) => {
     userFavorites = await FavoriteController._getFavoritesByUserId(userId);
     
     var userProfile = generateProfile(userFavorites, tagScores);
-    return(userProfile)
-}
+    return(userProfile);
+};
 
 const  calculateIDF = async () => {
     var businessList = await Business.find();
@@ -40,7 +40,7 @@ const  calculateIDF = async () => {
     }
     return (idfList);
 
-}
+};
 
 const multiplyAndSort = (attributeScoreForAllObjects, userProfile, idfList) => {
    priorityDictionary = {};
@@ -55,7 +55,7 @@ const multiplyAndSort = (attributeScoreForAllObjects, userProfile, idfList) => {
         Object.entries(priorityDictionary).sort(([,a],[,b]) => b-a)
     );
     return sortedDictionary;
-}
+};
 
 const convertIdsToBusinesses = async (businessIdList) => {
     var businessList = [];
@@ -64,17 +64,17 @@ const convertIdsToBusinesses = async (businessIdList) => {
       businessList.push(b);
     }
     return businessList;
-  }
+  };
 
 function createTagMapping (business) {
     var l = business.tags.length;
     var attributeScore;
 
-    if (l == 0) return {}
-    else if (l == 1) attributeScore = 1
+    if (l == 0) return {};
+    else if (l == 1) attributeScore = 1;
     else attributeScore = (Math.log(l))  /  (l-1);
 
-    var tagMap = {}
+    var tagMap = {};
     for (var i = 0; i < business.tags.length; i++){
         var tag = business.tags[i];
         tagMap[tag] = attributeScore;
@@ -118,4 +118,4 @@ module.exports = {
     calculateIDF,
     multiplyAndSort,
     convertIdsToBusinesses,
-}
+};

@@ -13,10 +13,10 @@ const postReply = async (request, response) => {
     try {
         const addedReply = await reply.save();
         response.status(201).json(addedReply);
-    } catch (error) {
-        response.json({ message: error });
+    } catch (e) {
+        response.json({ message: e });
     }
-}
+};
 
 const getAllReply = async (request, response) => {
     try {
@@ -25,7 +25,7 @@ const getAllReply = async (request, response) => {
     } catch (error) {
         response.json({ message: error });
     }
-}
+};
 
 const getOneReply = async (request, response) => {
 
@@ -36,7 +36,7 @@ const getOneReply = async (request, response) => {
     } catch (error) {
         response.json({ message: error });
     }
-}
+};
 
 const editReply = async (request, response) => {
     const { error } = replyValidation(request.body);
@@ -53,10 +53,10 @@ const editReply = async (request, response) => {
             runValidators: true,
         });
         response.status(200).json(updatedReply);
-    } catch (error) {
-        response.json({ message: error });
+    } catch (e) {
+        response.json({ message: e });
     }
-}
+};
 
 const patchReply = async (request, response) => {
     try {
@@ -66,7 +66,7 @@ const patchReply = async (request, response) => {
     } catch (error) {
         response.json({ message: error });
     }
-}
+};
 
 const deleteReply = async (request, response) => {
     try {
@@ -76,7 +76,7 @@ const deleteReply = async (request, response) => {
     } catch (error) {
         response.json({ message: error });
     }
-}
+};
 
 module.exports = {
     postReply,
@@ -85,4 +85,4 @@ module.exports = {
     deleteReply,
     editReply,
     patchReply
-}
+};

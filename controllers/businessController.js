@@ -71,20 +71,20 @@ const getFavoriteBusiness = async (request, response) => {
 };
 
 const seachCategory = async function (req, res) {
-  const query = req.query.query
+  const query = req.query.query;
   const categories = await Category.fuzzySearch(query, function (err, result) {
     if (err) {
-      return res.status(404).json({ message: err })
+      return res.status(404).json({ message: err });
 
     } else {
-      return res.status(200).json({ result })
+      return res.status(200).json({ result });
 
     }
   });
 
   // console.log(categories);
 
-}
+};
 
 const getBusinessByParam = async (request, response) => {
 
@@ -98,12 +98,12 @@ const getBusinessByParam = async (request, response) => {
 
   let a = await Business.fuzzySearch(queryParameter, async function (err, result) {
     if (err) {
-          return response.status(404).json({ message: err })
+          return response.status(404).json({ message: err });
     }
     try {
       let business = [];
       if (err) {
-        return res.status(404).json({ message: err })
+        return res.status(404).json({ message: err });
       }
       for (let i = 0; i < result.length; i++) {
         if (result[i].categoryId == categoryId) {
@@ -136,10 +136,10 @@ const getBusinessByParam = async (request, response) => {
       console.log(result);
       response.status(200).send(result);
     } catch (e) {
-      response.status(400).send({ message: e })
+      response.status(400).send({ message: e });
     }
-  })
-}
+  });
+};
 
 const getBusinessByCategory = async (request, response) => {
   const categoryId = request.params.categoryId;
@@ -168,7 +168,7 @@ const getBusinessByCategory = async (request, response) => {
     }
     response.status(200).send(result);
   } catch (e) {
-    response.status(400).send({ message: e })
+    response.status(400).send({ message: e });
 
   }
 

@@ -9,7 +9,7 @@ const getAllUsers = async (request, response) => {
     } catch (error) {
         response.json({ error: error });
     }
-}
+};
 
 const getOneUser = async (request, response) => {
     try {
@@ -19,7 +19,7 @@ const getOneUser = async (request, response) => {
     } catch (error) {
         response.json({ error: error });
     }
-}
+};
 
 const editUser = async (request, response) => {
     try {
@@ -31,7 +31,7 @@ const editUser = async (request, response) => {
     } catch (error) {
         response.json({ error: error });
     }
-}
+};
 
 const changeUsername = async (request, response) => {
     // checking if the username already exists
@@ -53,7 +53,7 @@ const changeUsername = async (request, response) => {
     } catch (error) {
         response.status(400).json({ message: error });
     }
-}
+};
 
 const changePassword = async (request, response) => {
 
@@ -77,7 +77,7 @@ const changePassword = async (request, response) => {
     } catch (error) {
         response.status(400).json({ message: error });
     }
-}
+};
 
 const upgradeUserToOwner = async (request, response) => {
     try {
@@ -90,7 +90,7 @@ const upgradeUserToOwner = async (request, response) => {
     } catch (error) {
         response.json({ message: error });
     }
-}
+};
 
 
 const deleteUser = async (request, response) => {
@@ -106,18 +106,18 @@ const deleteUser = async (request, response) => {
     } catch (error) {
         response.json({ error: error });
     }
-}
+};
 
 const makeClaim = async (request, response) => {
     const owner = new Owner(request.body);
 
     try {
         console.log("owner from model: ", owner);
-        const businessIdExists = await Owner.findOne({ businessId: request.body.businessId })
+        const businessIdExists = await Owner.findOne({ businessId: request.body.businessId });
         if (businessIdExists) {
             return response.status(400).send({ message: "Is already owned" });
         }
-        const userId = request.body.userId
+        const userId = request.body.userId;
         const patchedUser = await User.findById(userId);
         patchedUser.role = "Owner";
         patchedUser.save();
@@ -128,7 +128,7 @@ const makeClaim = async (request, response) => {
         console.log("error while adding owner: ", error);
         response.status(404).json({ message: error });
     }
-}
+};
 
 module.exports = {
     getAllUsers,
@@ -139,4 +139,4 @@ module.exports = {
     changeUsername,
     changePassword,
     makeClaim
-}
+};

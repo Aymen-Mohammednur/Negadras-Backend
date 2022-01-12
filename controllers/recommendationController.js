@@ -14,9 +14,9 @@ const getList = async (req, res) => {
   var businessList = await controllerHelpers.convertIdsToBusinesses(businessIdList);
   
   res.json(businessList);
-}
+};
 
 module.exports = {
   getList,
-}
+};
 

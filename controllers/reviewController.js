@@ -14,10 +14,10 @@ const postReview = async (request, response) => {
     try {
         const addedReview = await review.save();
         response.status(201).json(addedReview);
-    } catch (error) {
-        response.json({ message: error });
+    } catch (e) {
+        response.json({ message: e });
     }
-}
+};
 
 const getAllReview = async (request, response) => {
     try {
@@ -26,7 +26,7 @@ const getAllReview = async (request, response) => {
     } catch (error) {
         response.json({ message: error });
     }
-}
+};
 
 const getOneReview = async (request, response) => {
     // response.send("GET specific business");
@@ -38,7 +38,7 @@ const getOneReview = async (request, response) => {
     } catch (error) {
         response.json({ message: error });
     }
-}
+};
 
 const editReview = async (request, response) => {
     const { error } = reviewValidation(request.body);
@@ -54,10 +54,10 @@ const editReview = async (request, response) => {
             runValidators: true,
         });
         response.status(200).json(updatedReview);
-    } catch (error) {
-        response.json({ message: error });
+    } catch (err) {
+        response.json({ message: err });
     }
-}
+};
 
 const patchReview = async (request, response) => {
     try {
@@ -67,7 +67,7 @@ const patchReview = async (request, response) => {
     } catch (error) {
         response.json({ message: error });
     }
-}
+};
 
 const deleteReview = async (request, response) => {
     try {
@@ -77,7 +77,7 @@ const deleteReview = async (request, response) => {
     } catch (error) {
         response.json({ message: error });
     }
-}
+};
 
 const getReviewByBusiness = async (request, response) => {
     try {
@@ -95,14 +95,14 @@ const getReviewByBusiness = async (request, response) => {
             const user = await User.findById(reviews[i].userId);
             console.log(user);
             resultArray.push({...reviews[i]._doc, username: user.username});
-        };
+        }
         // some loop
         response.status(200).send(resultArray);
 
     } catch (error) {
         response.json({ message: error });
     }
-}
+};
 module.exports = {
     postReview,
     getAllReview,
@@ -111,4 +111,4 @@ module.exports = {
     patchReview,
     getOneReview,
     getReviewByBusiness
-}
+};

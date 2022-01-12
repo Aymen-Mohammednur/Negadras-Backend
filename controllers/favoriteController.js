@@ -29,7 +29,7 @@ const _getFavoritesByUserId = async (userId) => {
   } catch (error) {
     console.log("error in fav controller . js", error);
   }
-}
+};
 
 
 const removeFromFavorites = async (request, response) => {

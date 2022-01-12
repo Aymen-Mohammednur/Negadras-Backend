@@ -14,7 +14,7 @@ const getAllOrganizations = async (request, response) => {
     } catch (error) {
         response.json({ message: error });
     }
-}
+};
 
 const postOrganization = async (request, response) => {
     const { error } = organizationValidation(request.body);
@@ -28,10 +28,10 @@ const postOrganization = async (request, response) => {
     try {
         const addedOrganization = await organization.save();
         response.status(201).json(addedOrganization);
-    } catch (error) {
-        response.json({ message: error });
+    } catch (e) {
+        response.json({ message: e });
     }
-}
+};
 
 const getOneOrganization = async (request, response) => {
 
@@ -42,7 +42,7 @@ const getOneOrganization = async (request, response) => {
     } catch (error) {
         response.json({ message: error });
     }
-}
+};
 
 
 const editOrganization = async (request, response) => {
@@ -66,7 +66,7 @@ const editOrganization = async (request, response) => {
     } catch (error) {
         response.status(404).json({ message: error });
     }
-}
+};
 
 const deleteOrganization = async (request, response) => {
 
@@ -77,7 +77,7 @@ const deleteOrganization = async (request, response) => {
     } catch (error) {
         response.json({ message: error });
     }
-}
+};
 
 const getOrgByUserId = async (request, response) => {
     try {
@@ -90,7 +90,7 @@ const getOrgByUserId = async (request, response) => {
     } catch (error) {
         response.status(400).json({ message: error });
     }
-}
+};
 
 module.exports = {
     getAllOrganizations,
@@ -99,4 +99,4 @@ module.exports = {
     editOrganization,
     deleteOrganization,
     getOrgByUserId
-}
+};
