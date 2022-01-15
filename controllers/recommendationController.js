@@ -1,22 +1,18 @@
-controllerHelpers = require('./ControllerHelpers');
+import { RecommendationStrategyManager, FavoritesBasedStrategy } from './RecommendationStrategy';
 
+controllerHelpers = require('./ControllerHelpers');
+recommendationStrategy = require('./RecommendationStrategy');
 
 const getList = async (req, res) => {
-  var userId = req.params.userId;
-  
 
-  var attributeScoreForAllObjects = await controllerHelpers.calculateAttributeScoreForAllObjects();
-  var userProfile = await controllerHelpers.calculateUserProfile(userId, attributeScoreForAllObjects); // user to attribute
-  var idfList = await controllerHelpers.calculateIDF(); // IDF to attribute
-  var businessIdList = controllerHelpers.multiplyAndSort(attributeScoreForAllObjects, userProfile, idfList);
-
-
-  var businessList = await controllerHelpers.convertIdsToBusinesses(businessIdList);
-  
-  res.json(businessList);
+  const recommendationStrategyManager = new RecommendationStrategyManager(req, res);
+  recommendationStrategyManager.strategy = new FavoritesBasedStrategy();
+  recommendationStrategyManager.recommend();
 };
 
-module.exports = {
+
+
+export default {
   getList,
 };
 
