@@ -1,4 +1,4 @@
-const Reply = require('../models/Reply');
+const Reply = require('../models/ReplyModel');
 const { replyValidation } = require('../middlewares/validation');
 
 const postReply = async (request, response) => {

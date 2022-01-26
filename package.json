@@ -4,8 +4,10 @@
   "description": "A Node.js based API for the Negadras review application.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "stop": "pkill --signal SIGINT myApp"
   },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Aymen-Mohammednur/Negadras-Backend.git"

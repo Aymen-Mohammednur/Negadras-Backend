@@ -8,15 +8,15 @@ const cors = require("cors");
 app.use(cors());
 
 // importing routes
-const businessRoute = require("./routes/business");
-const reviewRoute = require("./routes/review");
-const userRoute = require("./routes/user");
-const uploadRoute = require("./routes/upload");
-const authRoute = require("./routes/auth");
-const categoryRoute = require("./routes/category");
-const favoriteRoute = require('./routes/favorite');
-const organizationRoute = require("./routes/organization");
-const recommendationRoute = require("./routes/recommendation");
+const businessRoute = require("./routes/BusinessRoutes");
+const reviewRoute = require("./routes/ReviewRoutes");
+const userRoute = require("./routes/UserRoutes");
+const uploadRoute = require("./routes/UploadRoutes");
+const authRoute = require("./routes/AuthRoutes");
+const categoryRoute = require("./routes/CategoryRoutes");
+const favoriteRoute = require('./routes/FavoriteRoutes');
+const organizationRoute = require("./routes/OrganizationRoutes");
+const recommendationRoute = require("./routes/RecommendationRoutes");
 
 app.use("/api/business", businessRoute);
 app.use("/api/review", reviewRoute);

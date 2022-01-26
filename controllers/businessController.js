@@ -1,7 +1,8 @@
-const Business = require("../models/Business");
+const Business = require("../models/BusinessModel");
 const { businessValidation } = require("../middlewares/validation");
-const Favorite = require("../models/Favorite");
-const Owner = require("../models/Owner");
+const Favorite = require("../models/FavoriteModel");
+const Owner = require("../models/OwnerModel");
+const UserModel = require("../models/UserModel");
 
 const postBusiness = async (request, response) => {
 
@@ -37,17 +38,20 @@ const getOneBusiness = async (request, response) => {
       return response.status(404).send({ error: "Business not found" });
     }
     response.status(200).json(business);
-  } catch (error) {
+  } catch (error) { 
     response.json({ message: error });
   }
 };
 
 const getFavoriteBusiness = async (request, response) => {
+  console.log("get favourite business called", request.params.userId);
   try {
     const userId = request.params.userId;
     const favorites = await Favorite.find({ userId: userId });
+    const user = await UserModel.findOne({_id: userId});
+    if (!user){ return response.status(404).send("User not found");}
     if (favorites.length == 0) {
-      return response.status(404).json();
+      return response.status(200).json("[]");
     }
 
     const result = [];
@@ -59,10 +63,7 @@ const getFavoriteBusiness = async (request, response) => {
         isFavorite: true,
         avgRating: 2.5,
       });
-      // }
-      console.log("about to fetch the user's favorite");
     }
-    console.log("end");
 
     response.status(200).send(result);
   } catch (error) {

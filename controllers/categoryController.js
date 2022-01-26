@@ -1,4 +1,4 @@
-const Category = require('../models/Category');
+const Category = require('../models/CategoryModel');
 const { categoryValidation } = require("../middlewares/validation");
 
 const getAllCategories = async (request, response) => {

@@ -1,5 +1,5 @@
-const Business = require("../models/Business");
-const Favorite = require("../models/Favorite");
+const Business = require("../models/BusinessModel");
+const Favorite = require("../models/FavoriteModel");
 const FavoriteController = require("./favoriteController");
 
 var INITIALISED_TAG_LIST;

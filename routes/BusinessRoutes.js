@@ -5,7 +5,6 @@ const recommendationController = require("../controllers/recommendationControlle
 const verifyToken = require("../middlewares/verifyToken");
 
 // router.post('/', verifyToken, businessController.postBusiness);
-router.post("/",verifyToken, businessController.postBusiness);
 
 router.get("/",verifyToken, businessController.getBusiness);
 
@@ -20,20 +19,22 @@ router.get(
 );
 
 router.get(
+  "/filter/:categoryId/", verifyToken,
+  businessController.searchBusiness
+);
+
+router.get(
   "/search/:categoryId/:userId", verifyToken,
   businessController.getBusinessByParam);
 
 router.put("/:id", verifyToken, businessController.editBusiness);
 
-router.delete("/:id", verifyToken, businessController.deleteBusiness);
-
-router.delete("/",verifyToken, businessController.deleteAllBusiness);
+router.post("/",verifyToken, businessController.postBusiness);
 
 router.patch("/:id", verifyToken, businessController.addOrganizationToBusiness);
 
-router.get(
-  "/filter/:categoryId/", verifyToken,
-  businessController.searchBusiness
-);
+router.delete("/:id", verifyToken, businessController.deleteBusiness);
+
+router.delete("/",verifyToken, businessController.deleteAllBusiness);
 
 module.exports = router;

@@ -1,7 +1,7 @@
 controllerHelpers = require('./ControllerHelpers');
 
 
-export class RecommendationStrategyManager {
+class RecommendationStrategyManager {
     constructor(req, res) {
       this.req = req;
       this.res = res;
@@ -20,11 +20,11 @@ export class RecommendationStrategyManager {
     }
   
     async recommend() {
-      await this._strategy.recommend(req, res);
+      await this._strategy.recommend(this.req, this.res);
     }
   }
   
-  export class FavoritesBasedStrategy{
+  class FavoritesBasedStrategy{
     async recommend (req, res)  { 
       var userId = req.params.userId;
   
@@ -39,3 +39,7 @@ export class RecommendationStrategyManager {
     }
   }
 
+  module.exports = {
+    RecommendationStrategyManager,
+    FavoritesBasedStrategy
+  };

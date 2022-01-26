@@ -1,12 +1,14 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+const User = require("../models/UserModel");
 const {
   registerValidation,
   loginValidation,
 } = require("../middlewares/validation");
 
 const register = async (req, res) => {
+  console.log("Recieved Register request with body: ");
+  console.log(req.body);
   //   console.log("REQUEST: ", req);
   // Lets validate
   const { error } = registerValidation(req.body);
@@ -43,6 +45,8 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
+  console.log("Login request found with body: ");
+  console.log(req.body);
   // Lets validate
   const { error } = loginValidation(req.body);
   if (error) return res.status(400).send({ message: error.details[0].message });

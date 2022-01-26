@@ -1,5 +1,5 @@
-const Review = require('../models/Review');
-const User = require('../models/User');
+const Review = require('../models/ReviewModel');
+const User = require('../models/UserModel');
 const { reviewValidation } = require('../middlewares/validation');
 
 const postReview = async (request, response) => {

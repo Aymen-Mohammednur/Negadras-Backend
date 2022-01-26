@@ -1,4 +1,4 @@
-const Organization = require('../models/Organization');
+const Organization = require('../models/OrganizationModel');
 const { organizationValidation } = require("../middlewares/validation");
 const { request, response } = require('express');
 
