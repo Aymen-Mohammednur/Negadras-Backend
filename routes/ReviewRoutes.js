@@ -4,9 +4,11 @@ const reviewController = require('../controllers/reviewController');
 
 
 // USING ASYNC
-router.post('/', reviewController.postReview);
-
 router.get('/', reviewController.getAllReview);
+
+router.get('/:businessId', reviewController.getReviewByBusiness);
+
+router.post('/', reviewController.postReview);
 
 router.patch('/:id', reviewController.patchReview);
 
@@ -14,7 +16,6 @@ router.put('/:id', reviewController.editReview);
 
 router.delete('/:id', reviewController.deleteReview);
 
-router.get('/:businessId', reviewController.getReviewByBusiness);
 
 
 module.exports = router;
