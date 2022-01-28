@@ -33,7 +33,7 @@ const MONGO_PORT = process.env.MONGO_PORT;
 const MONGO_DB = process.env.MONGO_DB;
 
 // FOR EVERYONE ELSE
-// const DB_URL = `mongodb://localhost:27017/`;
+const DB_URL = `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}`;
 
 /**
  * Make sure to do mongod in the terminal! that will start the database locally.
@@ -48,12 +48,12 @@ const MONGO_DB = process.env.MONGO_DB;
  * ACCESS_KEY=Hello
  */
 
+const API_PORT = process.env.API_PORT;
 // connecting to database
-const DB_URL = "mongodb+srv://semeretereffe:oP99XKZ9quoQoN3P@cluster0.o8qmj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 mongoose
   .connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((result) => {
-    app.listen(process.env.PORT, () => console.log(`listening at http://localhost:${process.env.PORT}`));
+    app.listen(process.env.PORT, () => console.log(`listening at http://localhost:${API_PORT}`));
     console.log("Connected to database!");
     // console.log("Result: ", result);
   })
